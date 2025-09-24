@@ -60,12 +60,14 @@
         nav a:hover {
             color: var(--primary);
         }
+        /* 移除图片后，调整英雄区为单栏居中布局，增强视觉焦点 */
         .hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 4rem;
+            text-align: center;
             margin-bottom: 5rem;
+            padding: 2rem 0;
         }
         .hero-text h1 {
             font-size: 3.5rem;
@@ -80,6 +82,9 @@
             font-size: 1.2rem;
             margin-bottom: 2rem;
             color: #4a5568;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .btn {
             display: inline-block;
@@ -88,16 +93,21 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
+            margin: 0 0.5rem;
         }
         .btn-primary {
             background-color: var(--primary);
             color: white;
-            margin-right: 1rem;
         }
         .btn-primary:hover {
             background-color: #2c75f0;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
+        }
+        /* 新增按钮点击反馈，增强交互感知 */
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(58, 134, 255, 0.3);
         }
         .btn-secondary {
             background-color: white;
@@ -109,20 +119,9 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(240, 240, 240, 0.3);
         }
-        .hero-image {
-            display: flex;
-            justify-content: center;
-        }
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
+        .btn-secondary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(240, 240, 240, 0.3);
         }
         .features {
             margin-bottom: 5rem;
@@ -133,10 +132,13 @@
             margin-bottom: 3rem;
             color: var(--dark);
         }
+        /* 调整为2列布局，适配4个功能卡片，避免错乱 */
         .feature-cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
         .card {
             background: white;
@@ -175,6 +177,8 @@
             overflow-x: auto;
             gap: 2rem;
             padding-bottom: 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
         .testimonial {
             flex: 0 0 300px;
@@ -188,6 +192,7 @@
             height: 80px;
             border-radius: 50%;
             margin-bottom: 1rem;
+            object-fit: cover; /* 防止图片变形 */
         }
         .testimonial p {
             margin-bottom: 1rem;
@@ -203,25 +208,35 @@
             border-top: 1px solid var(--gray);
             color: #6b7280;
         }
+        /* 修复锚点跳转偏移问题，保留顶部留白 */
+        #features, #contact {
+            scroll-margin-top: 80px;
+        }
         @media (max-width: 768px) {
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
             .hero-text h1 {
                 font-size: 2.5rem;
             }
+            .hero-text p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
             .feature-cards {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* 移动端单列布局 */
             }
             header {
                 flex-direction: column;
                 gap: 1rem;
+                text-align: center;
             }
             nav ul {
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
+            }
+            .btn {
+                display: block;
+                margin: 0.5rem auto;
+                width: 80%;
             }
         }
     </style>
@@ -243,12 +258,13 @@
             </nav>
         </header>
 
+        <!-- 移除英雄区图片，优化为居中文字布局 -->
         <section class="hero">
             <div class="hero-text">
                 <h1>重塑人工智能体验</h1>
                 <p>清云AI - Lumina 为您提供高效、智能的AI解决方案，助力您在数字时代抢占先机。</p>
-                <a href="#" class="btn btn-primary">立即体验</a>
-                <a href="#" class="btn btn-secondary">了解更多</a>
+                <a href="chat.html" class="btn btn-primary">立即体验</a>
+                <a href="more.html" class="btn btn-secondary">更多功能</a>
             </div>
         </section>
 
@@ -258,7 +274,7 @@
                 <div class="card">
                     <i class="fas fa-brain"></i>
                     <h3>智能思考</h3>
-                    <p>深度分析问题，让工作更简单。</p>
+                    <p>深度分析问题，提供精准解决方案，让工作更简单高效。</p>
                 </div>
                 <div class="card">
                     <i class="fas fa-comments"></i>
@@ -268,13 +284,38 @@
                 <div class="card">
                     <i class="fas fa-shield-alt"></i>
                     <h3>安全保障</h3>
-                    <p>多重加密与权限管理，确保您的数据安全无虞。</p>
+                    <p>多重加密与权限管理，确保您的隐私数据不被泄露，使用更安心。</p>
+                </div>
+                <!-- 用闪电图标匹配“信息快捷”功能 -->
+                <div class="card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>信息快捷</h3>
+                    <p>毫秒级响应速度，快速解答您的问题，提升工作学习效率。</p>
+                </div>
+            </div>
+        </section>
+
+        <!--  testimonials 区块-->
+        <section class="testimonials">
+            <h2>评价</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <p>使用清云AI后，我的工作效率提升了50%，智能分析功能帮我解决了很多复杂问题！</p>
+                    <div class="author">—— 用户 常先生</div>
+                </div>
+                <div class="testimonial">
+                    <p>就像和真人交流一样，非常推荐！</p>
+                    <div class="author">—— 用户 李女士</div>
+                </div>
+                <div class="testimonial">
+                    <p>数据加密让我们团队使用时完全不担心隐私问题。</p>
+                    <div class="author">—— 用户 王先生</div>
                 </div>
             </div>
         </section>
 
         <footer id="contact">
-            <p>© 2025 梦矩阵 版权所有 | 联系我们：13679584665@163.com</p>
+            <p>© 2025 梦矩阵工作室™ 版权所有 | 联系我们：13679584665@163.com</p>
         </footer>
     </div>
 </body>

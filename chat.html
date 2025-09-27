@@ -121,6 +121,13 @@
         .conversation-item:hover .edit-icon {
             opacity: 1;
         }
+        .back-button {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .back-button:hover {
+            color: #2563eb;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -196,6 +203,10 @@
                     <h1 class="text-xl font-semibold">清云AI - Lumina</h1>
                 </div>
                 <div class="flex items-center space-x-4">
+                    <!-- 添加返回按钮 -->
+                    <button id="back-button" class="back-button text-gray-600">
+                        <i class="fa fa-arrow-left text-lg"></i>
+                    </button>
                     <button id="settings-button" class="settings-button text-gray-600">
                         <i class="fa fa-cog text-lg"></i>
                     </button>
@@ -304,6 +315,11 @@
         
         // 初始化
         function init() {
+            // 添加返回按钮事件
+            document.getElementById('back-button').addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+            
             // API设置相关
             document.getElementById('api-key-input').value = apiConfig.key;
             
